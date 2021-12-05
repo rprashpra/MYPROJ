@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Index</title>
+	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
+    <style>
+       body {
+  font: 14px Georgia, serif;
+  text-align: center;
+}
+
+h1 {
+  font: bold 20px system-ui, Helvetica, Sans-Serif;
+}
+
+input[type="number"] {
+  padding: 10px;
+  color: #999;
+  font: bold 20px system-ui, Helvetica, Sans-Serif;
+  width: 60px;
+  margin: 10px 0;
+}
+#randomnumber {
+  font-size: 80px;
+}
+    </style>
+</head>
+<body>
+<h4 id="target"></h4>
+    <input id="strlength" type="number" value="5" min="1" max="100" />
+    <button id="gen" onClick="generate()">Generate</button>
+    <script>
+    function generate() {
+        let length = document.getElementById("strlength").value;
+        let result = ' ';
+        for(let i = 0; i < length; i++) {
+            result += 
+            String.fromCharCode(99 + Math.floor(Math.random() * 25));
+        }
+        document.getElementById("target").innerHTML = result
+    }
+    </script>
+</div>
+</body>
+</html>

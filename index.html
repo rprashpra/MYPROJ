@@ -4,7 +4,6 @@
 	<meta charset="utf-8">
 	<title>Index</title>
 	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-
     <style>
        body {
   font: 14px Georgia, serif;
@@ -28,20 +27,18 @@ input[type="number"] {
     </style>
 </head>
 <body>
-<h4 id="target"></h4>
-    <input id="strlength" type="number" value="5" min="1" max="100" />
-    <button id="gen" onClick="generate()">Generate</button>
+    <label>Age:</label>
+    <input type="number" name="age" id="age">
     <script>
-    function generate() {
-        let length = document.getElementById("strlength").value;
-        let result = ' ';
-        for(let i = 0; i < length; i++) {
-            result += 
-            String.fromCharCode(99 + Math.floor(Math.random() * 25));
-        }
-        document.getElementById("target").innerHTML = result
-    }
-    </script>
+function Diff() {
+var d = new Date(1899,11,31);
+var d1 = new Date();
+document.getElementById("demo").innerHTML = d;
+document.getElementById("demo").innerHTML =(Math.round(Math.abs((d1 - d) /  (24 *  60 * 60 * 1000)))) - (Math.round(document.getElementById("age").value * 365.25));
+}
+</script>
+<button onclick="Diff();">Click</button>
+<p id="demo"></p>
 </div>
 </body>
 </html>

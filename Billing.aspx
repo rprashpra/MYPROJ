@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Billing.aspx.cs" Inherits="FRANCHISEPORT_1.WebForm2" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Billing.aspx.cs" Inherits="FRANCHISEPORT_1.WebForm2" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -222,45 +222,53 @@ tr:nth-child(even){background-color: #f2f2f2}
                     <tr>
                     <td colspan="10">
                         <label style="font-family:Arial;font-weight:bolder">Sr By Pat ID:</label>
-                        <input type="search" placeholder="Search By Patentiant ID.." name="search" style="width:50%" />&nbsp;&nbsp;
+                        <input type="search" style="font-size:large" placeholder="Search By Patentiant ID.." name="search" style="width:50%"/>&nbsp;&nbsp;
                          <button type="button"><a href="SEARCH.aspx"><i class="fa fa-search"></i></a></button>
                     </td>
                     <td colspan="10" style="text-align-last:end">
-                    <button type="button" class="btn-info"><a href="Indents.aspx">Indents</a></button>
+                    <button type="button" class="btn-info" style="font-size:large"><a href="Indents.aspx">Indents</a></button>
                     </td>
                     <td colspan="10" style="text-align-last:center">
                         <asp:TextBox ID="TextDate" CssClass="form-control" TextMode="Date" ToolTip="Calender" style="margin-left:6%;width:95%" runat="server"></asp:TextBox>
                     </td>
+                        <td  colspan="10" style="text-align-last:center">
+                            
+                        </td>
                     </tr>
                      <tr>
-                       <td colspan="10" style="background-color:lightblue">
-                         <asp:Label ID="Label1" runat="server" Text="BillType:"  style="font-family:Arial;font-weight:bolder"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           <input id="Radio1" type="radio" name="radios" value="CASH" checked="checked" /><strong>CASH</strong>
-                           <input id="Radio2" type="radio" name="radios" value="CREDIT"/><strong>CREDIT</strong>
-                           <asp:DropDownList ID="DropDownList1" style="width:45%;margin-left:45%;margin-top:-4%;display:none" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="Name"></asp:DropDownList>
+                       <td colspan="10" class="table-bordered" style="background-color:lightblue">
+                           <div style="margin-top:10%">
+                         <asp:Label ID="Label1" runat="server" Text="BillType:"  style="font-family:Arial;font-weight:bolder"></asp:Label>
+                           <asp:RadioButtonList ID="RadioButtonList2" RepeatDirection="Horizontal" runat="server">
+                               <asp:ListItem  Value="CASH"></asp:ListItem>
+                               <asp:ListItem  Value="CREDIT"></asp:ListItem>
+                           </asp:RadioButtonList>
+                           <asp:DropDownList ID="DropDownList1" style="width:48%;margin-left:55%;margin-top:-5%;display:none" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="Name"></asp:DropDownList>
                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Name] FROM [tblCLCreditCustomerMaster]"></asp:SqlDataSource>
                            <script>
-                               $('input:radio[name="radios"]').change(function () {
+                               $('input:radio[name="RadioButtonList2"]').change(function () {
                                    if ($(this).val() == 'CASH') {
                                        $('#DropDownList1').attr('disabled', true);
                                        if ($('#DropDownList1').attr('disabled', true)) {
                                            document.getElementById('DropDownList1').style.display = "none";
+                                           alert('Patient is a walkin patient');
                                         }
                                    }
                                    else if ($(this).val() == 'CREDIT') {
                                        $('#DropDownList1').attr('disabled', false);
                                        if ($('#DropDownList1').attr('disabled',false)){
                                            document.getElementById('DropDownList1').style.display = "block";
+                                           alert('Patient is a Credit patient');
                                        }
                                    }
                                });
                            </script>
+                            </div>
                        </td>
                         <td colspan="10"  style="background-color:lightblue">
-                            <?php  $sql = 2112060001; style="font-size:xx-large"?>
+                            <?php  $sql = 2112060001;?>
                            <h2>The getDate() Method</h2>
                             <button type="button" class="btn-primary" onclick="getDate(this.val)">Pat ID</button>
-                            <asp:Button ID="Btn_save" class="btn-primary" runat="server" Text="Save" OnClick="Btn_save_Click" />
                             <asp:Label ID="Label22" runat="server" Text="Label"></asp:Label>
                                 <p id="demo"></p>
                                    <script type="text/javascript">
@@ -271,20 +279,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                                            today = today.toString();
                                            today = today.replaceAll("-", "");
                                            var new_id;
-                                           if (today.localeCompare(cmpstring) == 0) {
-
+                                           if (today.localeCompare(cmpstring) == 0){
                                                new_id = parseInt(prev_id) + 1;
                                            }
                                            else if (today.localeCompare(cmpstring) == 1) {
-
                                                new_id = parseInt(today.concat('0001'));
                                            }
                                            document.getElementById("demo").innerHTML = new_id;
-                                       }
-                                       function savePatID(val) {
-                                       }
-                                   </script><br /><br />
-                                  <?php $sql = 1000;?>
+                                         }
+                                        </script><br />
+                                    <?php $sql = 1000;?>
                                     <h2>getRegno() method</h2>  
                                  <button type="button" class="btn-primary" onclick="getRegno(this.val)">Reg No</button>
                                             <p id="a"></p>
@@ -292,49 +296,72 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                 function getRegno(val) {
                                                     var prev_id = "<?php echo $sql?>"
                                                     var cmpstring = prev_id.toString().slice(0, 6);
-                                                    var today = new Date().toISOString().slice(3,12);
+                                                    var today = new Date().toISOString().slice(3, 12);
                                                     today = today.toString();
                                                     today = today.replaceAll("-", "");
                                                     var new_id;
                                                     if (today.localeCompare(cmpstring) == 0) {
-
                                                         new_id = parseInt(prev_id) + 1;
                                                     }
                                                     else if (today.localeCompare(cmpstring) == 1) {
-
                                                         new_id = parseInt(today.concat('1000'));
-                                                       
+
                                                     }
                                                     document.getElementById("a").innerHTML = new_id;
                                                 }
-                                            </script><br /><br />
-                                              <? php $sql="1"; ?>
-                                                 <h2>getToken() method</h2>
-                                                    <button type="button" class="btn-primary" onclick="getToken()">Get Token</button>
-                                                        <p id="b"></p>
-                                                           <script>
-                                                               function getToken(val){
-                                                          var prev_id = "<?php echo $sql?>"
-                                                    var cmpstring = prev_id.toString().slice(0, 6);
-                                                    var today = new Date().toISOString().slice(8,12);
-                                                    today = today.toString();
-                                                    today = today.replaceAll("-", "");
-                                                    var new_id;
-                                                    if (today.localeCompare(cmpstring) == 0) {
-
-                                                        new_id = parseInt(prev_id) + 1;
+                                            </script><br />
+                                  <h1>RegDate</h1>
+                                        <button type="button" class="btn-primary" onclick="Diff();">Get RegDate</button>
+                             <asp:Label ID="Label25" runat="server" Text="Label"></asp:Label>
+                                              <p id="demo1"></p>
+                                          <script>
+                                              function Diff(){
+                                                  var d = new Date(1899, 11, 30);
+                                                  var d1 = new Date();
+                                                  document.getElementById("demo1").innerHTML = d;
+                                                  document.getElementById("demo1").innerHTML = (Math.round(Math.abs((d1 - d) / (24 * 60 * 60 * 1000))));
+                                              }
+                                          </script><br />
+                                              <div class="center">
+	                                                <div class="bg">
+		                                                <div>
+			                                                <h1 id="countDisplay">Token NO: 0</h1>
+		                                                </div>
+		                                                    <div class="buttons">
+			                                                    <button type="button" onclick="countUp()">Increment</button>
+			                                                    <button type="button" onclick="countReset()">Reset</button>
+		                                                </div>
+	                                                </div>
+                                                </div>
+                                                <script>
+                                                    var countDisplay = document.getElementById("countDisplay");
+                                                    var count = 0;
+                                                    var key = 1;
+                                                    function countReset() {
+                                                        count = 0;
+                                                        key = 1;
+                                                        countDisplay.innerHTML = "Token NO: " + count;
                                                     }
-                                                    else if (today.localeCompare(cmpstring) == 1) {
-
-                                                        new_id = parseInt(today.concat('1000'));
-                                                       
+                                                    function countUp() {
+                                                        if (count == 1 * key) {
+                                                            key *= 1;
+                                                        }
+                                                        countDisplay.innerHTML = "Token NO: " + (count += key);
                                                     }
-                                                    document.getElementById("b").innerHTML = new_id;
-                                                  }
-                                             </script>
+                                                    function countDown() {
+                                                        if (count == 0) {
+                                                            return countReset();
+                                                        }
+                                                        if ((count == key || count == -key) && key != 1) {
+                                                            key /= 10;
+                                                        }
+                                                        countDisplay.innerHTML = "Token NO: " + (count -= key);
+                                                    }
+
+                                                </script>
                                           </td>
-                         <td  colspan="10" style="background-color:lightblue;text-align-last:start;margin-top:5%">
-                              <input type="file" id="files" name="files[]" multiple="multiple" />
+                         <td  colspan="10" style="background-color:lightblue;text-align-last:center;margin-top:5%">
+                              <input type="file" id="files" name="files[]" multiple="multiple"/>
                                 <script type="text/javascript">
                                     $(document).ready(function () {
                                         if (window.File && window.FileList && window.FileReader) {
@@ -381,21 +408,39 @@ tr:nth-child(even){background-color: #f2f2f2}
                                         <asp:TextBox ID="TextName"  style="margin-left:1%;width:59%;font-size:small;font-family:Arial;text-rendering:geometricPrecision" ClientIDMode="AutoID"  runat="server"></asp:TextBox>                                        
                        </td>
                        <td colspan="10" style="background-color:lightblue">
-                       </td>
+                          <asp:Label ID="Label23" runat="server" Text="UserID" style="font-family:Arial;font-weight:bolder"></asp:Label>
+                            <asp:DropDownList ID="DropDownList8" style="margin-left:5%;width:62%" runat="server" DataSourceID="SqlDataSource8" DataTextField="UserID" DataValueField="UserID" Height="22px"></asp:DropDownList>
+                            <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [UserID] FROM [tblUserCreditCustomers]"></asp:SqlDataSource>
+                    </td>
+                    <td colspan="10" style="background-color:lightblue">
+                         <asp:Label ID="Label24" runat="server" Text="CREDITID" style="margin-left:-29%;font-family:Arial;font-weight:bolder"></asp:Label>
+                        <asp:DropDownList ID="DropDownList9"   style="width:101%;margin-top:2%;margin-left:0.5%"  runat="server" DataSourceID="SqlDataSource9" DataTextField="CreditID" DataValueField="CreditID" Height="22px"></asp:DropDownList>
+                         <asp:SqlDataSource ID="SqlDataSource9" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [CreditID] FROM [tblUserCreditCustomers]"></asp:SqlDataSource>
+                    </td>
                      </tr>
                      <tr>
                        <td  colspan="10" style="background-color:lightblue">
                            <asp:Label ID="Label3" runat="server" Text="Age:" style="font-family:Arial;font-weight:bolder"></asp:Label>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ControlToValidate="TextAge" ForeColor="Red"></asp:RequiredFieldValidator>
                                 <asp:TextBox ID="TextAge" TextMode="Number" style="width:18%;margin-left:9.1%;font-family:Arial;font-weight:bolder;font-size:small" runat="server" Width="134px"></asp:TextBox>
-                                     <asp:TextBox ID="TextMonth" TextMode="Month" style="width:18%;margin-left:9.1%;font-family:Arial;font-weight:bolder;font-size:small" runat="server" Width="134px"></asp:TextBox>
-                                         <asp:TextBox ID="TextDays" TextMode="Week" style="width:18%;margin-left:9.1%;font-family:Arial;font-weight:bolder;font-size:small" runat="server" Width="134px"></asp:TextBox>
-                       </td>
+                                     <asp:TextBox ID="TextMonth" TextMode="Month" style="width:19%;margin-left:9.1%;font-family:Arial;font-weight:bolder;font-size:small" runat="server" Width="134px"></asp:TextBox>
+                                         <asp:TextBox ID="TextDays" TextMode="Week" style="width:19%;margin-left:9.1%;font-family:Arial;font-weight:bolder;font-size:small" runat="server" Width="134px"></asp:TextBox>
+                                               <script>
+                                                   function Diff1() {
+                                                       var d = new Date(1899, 11, 30);
+                                                       var d1 = new Date();
+                                                       document.getElementById("demo2").innerHTML = d;
+                                                       document.getElementById("demo2").innerHTML = (Math.round(Math.abs((d1 - d) / (24 * 60 * 60 * 1000)))) - (Math.round(document.getElementById("TextAge").value * 365.2));
+                                                   }
+                                                </script>
+                                                    <button type="button" onclick="Diff1();" class="btn-primary">Code</button>
+                                                        <p id="demo2"></p>
+                                            </td>
                          <td  colspan="10" style="background-color:lightblue;text-align-last:start">
                              <asp:Label ID="Label4" runat="server" Text="Sex:"  style="margin-left:-1%;font-family:Arial;font-weight:bolder"></asp:Label>
-                           <input id="Radio3" type="radio" name="radios" value="Male" style="margin-left:9%;" checked="checked" /><strong>Male</strong>
-                           <input id="Radio4" type="radio" name="radios" value="Female"/><strong>Female</strong>
-                           <input id="Radio5" type="radio" name="radios" value="Others"/><strong>Others</strong>
+                           <input id="Radio3" type="radio"  name="radios" value="Male" style="margin-left:9%;" checked="checked" /><strong>Male</strong>
+                           <input id="Radio4" type="radio"  name="radios" value="Female"/><strong>Female</strong>
+                           <input id="Radio5" type="radio"  name="radios" value="Others"/><strong>Others</strong>
                            <script>
                                $('input:radio[name="radios"]').change(function () {
                                    if ($(this).val() == 'Male') {
@@ -413,9 +458,9 @@ tr:nth-child(even){background-color: #f2f2f2}
                            </script>
                          </td>
                            <td  colspan="10" style="background-color:lightblue;text-align-last:start">
-                               <asp:Label ID="Label5" runat="server" Text="Address:" style="margin-left:-54%;font-family:Arial;font-weight:bolder"></asp:Label>
+                               <asp:Label ID="Label5" runat="server" Text="Address:" style="margin-left:-29%;font-family:Arial;font-weight:bolder"></asp:Label>
                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator3"  runat="server" ErrorMessage="*" ControlToValidate="TextAddress" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:TextBox ID="TextAddress"  TextMode="SingleLine" style="width:120%;margin-top:2%" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="TextAddress"  TextMode="SingleLine" style="width:100%;margin-top:2%;margin-left:0.5%" runat="server"></asp:TextBox>
                            </td>
                      </tr>
                      <tr>
@@ -446,9 +491,9 @@ tr:nth-child(even){background-color: #f2f2f2}
                                <asp:TextBox ID="TextEmail" TextMode="Email" style="width:62%;text-align-last:left;margin-left:-1%" runat="server"></asp:TextBox> 
                          </td>
                            <td colspan="10" style="background-color:lightblue;text-align-last:start">
-                               <asp:Label ID="Label8" runat="server" Text="Area:" style="margin-left:-51%;font-family:Arial;font-weight:bolder"></asp:Label>
+                               <asp:Label ID="Label8" runat="server" Text="Area:" style="margin-left:-29%;font-family:Arial;font-weight:bolder"></asp:Label>
                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6"  runat="server" ErrorMessage="*" ControlToValidate="TextArea" ForeColor="Red"></asp:RequiredFieldValidator>
-                               <asp:TextBox ID="TextArea" TextMode="SingleLine" style="width:120%;text-align-last:left;margin-left:7%" runat="server"  Width="215px"></asp:TextBox>
+                               <asp:TextBox ID="TextArea" TextMode="SingleLine" style="width:100%;text-align-last:left;margin-left:10%" runat="server"  Width="215px"></asp:TextBox>
                            </td>
                      </tr>
                      <tr>
@@ -456,12 +501,12 @@ tr:nth-child(even){background-color: #f2f2f2}
                             <asp:Label ID="Label9" runat="server" Text="Refer.By Dr:" style="font-family:Arial;font-weight:bolder"></asp:Label>
                                 <asp:DropDownList ID="DropDownList4"  style="margin-left:0.6%" runat="server" DataSourceID="SqlDataSource3" DataTextField="Name" DataValueField="Name" Height="22px" Width="265px"></asp:DropDownList>
                             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Name] FROM [tblCLDoctorMaster]"></asp:SqlDataSource>
-                                <button type="button" style="background-color:gainsboro"><a href="DoctorMaster.aspx">Doctor Master</a></button>
+                                <button type="button" style="background-color:gainsboro;width:21%;margin-left:-1%"><a href="DoctorMaster.aspx">DoctorMaster</a></button>
                         </td>
                          <td colspan="10" style="background-color:lightblue;text-align-last:start">
                               <asp:Label ID="Label10" runat="server" Text="City:" style="margin-left:2.4%;font-family:Arial;font-weight:bolder"></asp:Label>
                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7"  runat="server" ErrorMessage="*" ControlToValidate="TextCity" ForeColor="Red"></asp:RequiredFieldValidator>
-                               <asp:TextBox ID="TextCity" TextMode="SingleLine" style="width:62%;margin-left:7.2%" runat="server"></asp:TextBox>
+                               <asp:TextBox ID="TextCity" TextMode="SingleLine" style="width:62%;margin-left:4.2%" runat="server"></asp:TextBox>
                          </td>
                            <td colspan="10" style="background-color:lightblue">&nbsp;</td>
                      </tr>
@@ -470,31 +515,34 @@ tr:nth-child(even){background-color: #f2f2f2}
                               <asp:Label ID="Label11" runat="server" Text="Marketing:" style="font-family:Arial;font-weight:bolder"></asp:Label>
                              <asp:DropDownList ID="DropDownList5" style="margin-left:3%" runat="server" DataSourceID="SqlDataSource4" DataTextField="Name" DataValueField="Name" Height="22px"  Width="265px"></asp:DropDownList>
                               <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Name] FROM [tblCLMarketingMaster]"></asp:SqlDataSource>
-                               <button type="button" style="background-color:gainsboro;width:22%"><a href="MarketingMaster.aspx">Marketing</a></button>
+                               <button type="button" style="background-color:gainsboro;width:20%;margin-left:-0.7%"><a href="MarketingMaster.aspx">Marketing</a></button>
                          </td>
                          <td colspan="10" style="background-color:lightblue;text-align-last:start">
-                            <asp:Label ID="Label12" runat="server" Text="Package:" style="margin-left:-4%;font-family:Arial;font-weight:bolder"></asp:Label>
-                             <asp:DropDownList ID="DropDownList6" style="margin-left:6%" runat="server" DataSourceID="SqlDataSource5" DataTextField="PackageName" DataValueField="PackageName" Width="315px" Height="22px"></asp:DropDownList>
+                            <asp:Label ID="Label12" runat="server" Text="Package:" style="margin-left:2%;font-family:Arial;font-weight:bolder"></asp:Label>
+                             <asp:DropDownList ID="DropDownList6" style="margin-left:0.5%" runat="server" DataSourceID="SqlDataSource5" DataTextField="PackageName" DataValueField="PackageName" Width="325px" Height="22px"></asp:DropDownList>
                              <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [PackageName] FROM [tblCLPackages]"></asp:SqlDataSource>
                          </td>
-                         <td colspan="20" style="background-color:lightblue;text-align-last:start">
-                             <asp:Label ID="Label13"  runat="server" Text="Pin:" style="margin-left:-49%;font-family:Arial;font-weight:bolder"></asp:Label>
+                         <td colspan="10" style="background-color:lightblue;text-align-last:end">
+                             <asp:Label ID="Label13"  runat="server" Text="Pin:" style="margin-left:-29%;font-family:Arial;font-weight:bolder"></asp:Label>
                                <asp:RequiredFieldValidator ID="RequiredFieldValidator8"  runat="server" ErrorMessage="*" ControlToValidate="TextPin" ForeColor="Red"></asp:RequiredFieldValidator>
-                               <asp:TextBox ID="TextPin" TextMode="SingleLine"  style="width:120%;margin-top:-5%;margin-left:9%"  runat="server" Width="215px"></asp:TextBox>
+                               <asp:TextBox ID="TextPin" TextMode="SingleLine"  style="width:100%;margin-top:-5%;margin-left:10%" placeholder="Pin"  runat="server" Width="215px"></asp:TextBox>
                          </td>
                      </tr>
                      <tr>
-                        <td colspan="10" style="background-color:lightblue;text-align-last:center;margin-top:130%">
+                        <td colspan="10" style="background-color:lightblue;text-align-last:center">
+                            <div style="margin-top:8%">
                           <asp:Panel  runat="server" style="text-align-last:center">
-                              <asp:HyperLink href="Table.aspx" runat="server">Table</asp:HyperLink>
+                              <asp:HyperLink CssClass="btn btn-primary" href="Table.aspx" runat="server">Table</asp:HyperLink>
                           </asp:Panel>
+                            </div>
                           </td>
                                                         <td colspan="10" style="background-color:lightblue;text-align-last:center">
-                                                            <button type="button" class="btn-primary" style="margin-left:
-    15%;background-color:gainsboro"><a href="Pescription.aspx">Pescription</a></button>
-                                                       </td>
+                                                            <div style="margin-top:7%">
+                        <button type="button" class="btn btn-primary" style="margin-left:15%;background-color:white"><a href="Pescription.aspx">Pescription</a></button>
+                                                          </div>
+                                                        </td>
                                                 <td colspan="10" style="background-color:lightblue;text-align-last:center">
-                                                    <div style="margin-top:10%">
+                                                    <div style="margin-top:13%">
                                                     <div class="w3-dropdown-hover">
                                                             <button class="w3-button">Mode</button>
                                                                      <div class="w3-dropdown-content w3-bar-block w3-border">
@@ -513,13 +561,13 @@ tr:nth-child(even){background-color: #f2f2f2}
                         <td colspan="10" style="background-color:lightblue;text-align-last:start"></td>
                          <td colspan="10" style="background-color:lightblue;text-align-last:start"></td>
                           <td colspan="10" style="background-color:lightblue;text-align-last:start">
-                              <div style="margin-top:86%">
+                              <div style="margin-top:86%;background-color:lightblue">
                               <asp:Label ID="Label14" runat="server" Text="Rpt.Dispatched Type:"  style="font-family:Arial;font-weight:bolder"></asp:Label>
-                              <asp:RadioButtonList ID="RadioButtonList1" RepeatDirection="Vertical" style="" runat="server">
+                              <asp:RadioButtonList ID="RadioButtonList1" RepeatDirection="Vertical" runat="server">
                                   <asp:ListItem>By Hand</asp:ListItem>
-                                  <asp:ListItem>SMS</asp:ListItem>
+                                  <asp:ListItem >SMS</asp:ListItem>
                                   <asp:ListItem>Email</asp:ListItem>
-                                  <asp:ListItem>Courier</asp:ListItem>
+                                  <asp:ListItem >Courier</asp:ListItem>
                                   <asp:ListItem>Fax</asp:ListItem>
                               </asp:RadioButtonList>
                             </div>
@@ -535,16 +583,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                          </td>
                      </tr>
                      <tr>
-                     <td colspan="10" style="background-color:lightblue;text-align-last:start">
-                         <div style="margin-top:54%">
+                     <td colspan="10" style="background-color:lightblue;text-align-last:center">
+                         <div style="margin-top:56%">
                           <asp:CheckBox ID="CheckBox2" onclick="window.print()" style="margin-left:-2%" Text="PRINT" runat="server" />&nbsp;&nbsp;&nbsp;
                              </div>
                      </td>
                          <td colspan="10" style="background-color:lightblue;text-align-last:start">
                              <asp:Label ID="Label15" runat="server" Text="Remarks:" style="margin-left:-35%;font-family:Arial;font-weight:bolder"></asp:Label>
-                              <asp:TextBox ID="TextRemarks" TextMode="MultiLine" style="margin-top:42%;overflow:scroll" runat="server" Width="459px"></asp:TextBox>
+                              <asp:TextBox ID="TextRemarks" TextMode="MultiLine" style="margin-top:40%;margin-left:25%;overflow:scroll" runat="server" Width="482px"></asp:TextBox>
                          </td>
-                           <td colspan="10" style="background-color:lightblue;text-align-last:start;margin-left:-9%">
+                           <td colspan="10" style="background-color:lightblue;text-align-last:start;margin-left:-9%;margin-top:4%">
                          <asp:Label ID="Label17" runat="server" Text="Amt:" style="font-family:Arial;font-weight:bolder"></asp:Label>&nbsp;&nbsp;
                           <asp:DropDownList ID="DropDownList16" TabIndex="0" style="margin-left:7%;width:68.5%" runat="server" DataSourceID="SqlDataSource7" DataTextField="AmtPaid"  DataValueField="AmtPaid"></asp:DropDownList>
                            <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [AmtPaid] FROM [tblCLBillTransaction]"></asp:SqlDataSource><br /><br />
@@ -563,18 +611,20 @@ tr:nth-child(even){background-color: #f2f2f2}
                      </tr>
                  </table>
                  <hr />
+                 <ul class="list-group">
                  <div class="clearfix" style="text-align-last:right">
-                             <button type="button" class="btn-primary" onclick="openWin()">NEW</button>
+                             <button type="button" class="btn btn-primary" onclick="openWin()">NEW</button>
                              <script>
                                  function openWin() {
                                      window.open("http://localhost:54727/Billing.aspx");
                                  }
                              </script>
-                             <asp:Button ID="Button1" CssClass="btn-success"   runat="server" Text="SAVE"/>
-                             <button type="button" class="btn-danger" onclick="location.reload()">Cancel</button>
-                             <button type="button" class="btn-success"><a href="SEARCH.aspx">SEARCH</a></button>
-                             <button type="button" class="btn-danger" onclick="window.close()">CLOSE</button>
+                             <asp:Button ID="Button1" CssClass="btn btn-success" runat="server" Text="SAVE" OnClick="Button1_Click"/>
+                             <button type="button" class="btn btn-danger" onclick="location.reload()">Cancel</button>
+                             <button type="button" class="btn btn-success"><a href="SEARCH.aspx">SEARCH</a></button>
+                             <button type="button" class="btn btn-danger" onclick="window.close()">CLOSE</button>
                          </div>
+                     </ul>
              </div>
         </div>
     </section>    

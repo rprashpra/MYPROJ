@@ -222,14 +222,14 @@ tr:nth-child(even){background-color: #f2f2f2}
                     <tr>
                     <td colspan="10">
                         <label style="font-family:Arial;font-weight:bolder">Sr By Pat ID:</label>
-                        <input type="search" style="font-size:large" placeholder="Search By Patentiant ID.." name="search" style="width:50%"/>&nbsp;&nbsp;
+                        <input type="search" style="font-size:large;" placeholder="Search By Patentiant ID.." name="search" />&nbsp;&nbsp;
                          <button type="button"><a href="SEARCH.aspx"><i class="fa fa-search"></i></a></button>
                     </td>
                     <td colspan="10" style="text-align-last:end">
-                    <button type="button" class="btn-info" style="font-size:large"><a href="Indents.aspx">Indents</a></button>
+                    <button type="button" class="btn btn-info" style="font-size:small"><a href="Indents.aspx">Indents</a></button>
                     </td>
                     <td colspan="10" style="text-align-last:center">
-                        <asp:TextBox ID="TextDate" CssClass="form-control" TextMode="Date" ToolTip="Calender" style="margin-left:6%;width:95%" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="TextDate" CssClass="form-control" TextMode="Date" ToolTip="Calender" style="margin-left:-1%;width:102%" runat="server"></asp:TextBox>
                     </td>
                         <td  colspan="10" style="text-align-last:center">
                             
@@ -242,8 +242,8 @@ tr:nth-child(even){background-color: #f2f2f2}
                            <asp:RadioButtonList ID="RadioButtonList2" RepeatDirection="Horizontal" runat="server">
                                <asp:ListItem  Value="CASH"></asp:ListItem>
                                <asp:ListItem  Value="CREDIT"></asp:ListItem>
-                           </asp:RadioButtonList>
-                           <asp:DropDownList ID="DropDownList1" style="width:48%;margin-left:55%;margin-top:-5%;display:none" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="Name"></asp:DropDownList>
+                           </asp:RadioButtonList><br />
+                           <asp:DropDownList ID="DropDownList1" style="width:48%;margin-left:50%;margin-top:-5%;display:none" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="Name"></asp:DropDownList>
                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Name] FROM [tblCLCreditCustomerMaster]"></asp:SqlDataSource>
                            <script>
                                $('input:radio[name="RadioButtonList2"]').change(function () {
@@ -266,11 +266,12 @@ tr:nth-child(even){background-color: #f2f2f2}
                             </div>
                        </td>
                         <td colspan="10"  style="background-color:lightblue">
+                            <asp:DropDownList ID="DropDownList10" style="display:none" runat="server" DataSourceID="SqlDataSource10" DataTextField="PatID" DataValueField="PatID"></asp:DropDownList>
+                            <asp:SqlDataSource ID="SqlDataSource10" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [PatID] FROM [tblCLRegistration]"></asp:SqlDataSource>
                             <?php  $sql = 2112060001;?>
-                           <h2>The getDate() Method</h2>
-                            <button type="button" class="btn-primary" onclick="getDate(this.val)">Pat ID</button>
-                            <asp:Label ID="Label22" runat="server" Text="Label"></asp:Label>
-                                <p id="demo"></p>
+                           <h2 class="text-center">The getDate() Method</h2>
+                            <center><button type="button" class="btn btn-primary" onclick="getDate(this.val)">Pat ID</button></center>
+                                 <center><label><p id="demo"></p></label></center>
                                    <script type="text/javascript">
                                        function getDate(val) {
                                            var prev_id = "<?php echo $sql?>"
@@ -289,10 +290,10 @@ tr:nth-child(even){background-color: #f2f2f2}
                                          }
                                         </script><br />
                                     <?php $sql = 1000;?>
-                                    <h2>getRegno() method</h2>  
-                                 <button type="button" class="btn-primary" onclick="getRegno(this.val)">Reg No</button>
-                                            <p id="a"></p>
-                                            <script type="text/ecmascript">
+                                    <h2 class="text-center">getRegno() method</h2>  
+                                         <center><button type="button" class="btn btn-primary" onclick="getRegno(this.val)">Reg No</button></center>
+                                             <center><label><p id="a"></p></label></center>
+                                            <script type="text/javascript">
                                                 function getRegno(val) {
                                                     var prev_id = "<?php echo $sql?>"
                                                     var cmpstring = prev_id.toString().slice(0, 6);
@@ -310,10 +311,11 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                     document.getElementById("a").innerHTML = new_id;
                                                 }
                                             </script><br />
-                                  <h1>RegDate</h1>
-                                        <button type="button" class="btn-primary" onclick="Diff();">Get RegDate</button>
-                             <asp:Label ID="Label25" runat="server" Text="Label"></asp:Label>
-                                              <p id="demo1"></p>
+                                  <asp:DropDownList ID="DropDownList11" runat="server" style="display:none" DataSourceID="SqlDataSource11" DataTextField="RegDate" DataValueField="RegDate"></asp:DropDownList>
+                                    <asp:SqlDataSource ID="SqlDataSource11" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [RegDate] FROM [tblCLRegistration]"></asp:SqlDataSource>
+                                  <h1 class="text-center">RegDate</h1>
+                                        <center><button type="button" class="btn btn-primary text-center" onclick="Diff();">Get RegDate</button></center>
+                                              <center><label><p id="demo1"></p></label></center>
                                           <script>
                                               function Diff(){
                                                   var d = new Date(1899, 11, 30);
@@ -322,7 +324,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                   document.getElementById("demo1").innerHTML = (Math.round(Math.abs((d1 - d) / (24 * 60 * 60 * 1000))));
                                               }
                                           </script><br />
-                                              <div class="center">
+                                              <div class="text-center">
 	                                                <div class="bg">
 		                                                <div>
 			                                                <h1 id="countDisplay">Token NO: 0</h1>
@@ -349,7 +351,8 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                         countDisplay.innerHTML = "Token NO: " + (count += key);
                                                     }
                                                     function countDown() {
-                                                        if (count == 0) {
+                                                        if (count == window.save()) {
+
                                                             return countReset();
                                                         }
                                                         if ((count == key || count == -key) && key != 1) {
@@ -397,6 +400,8 @@ tr:nth-child(even){background-color: #f2f2f2}
                                         }
                                     });
                                     </script>
+                              <asp:DropDownList ID="DropDownList13" style="display:none" runat="server" DataSourceID="SqlDataSource13" DataTextField="CrLimit" DataValueField="CrLimit"></asp:DropDownList>
+                              <asp:SqlDataSource ID="SqlDataSource13" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [CrLimit] FROM [tblCLCreditCustomerMaster]"></asp:SqlDataSource>
                          </td>
                      </tr>
                      <tr>
@@ -433,16 +438,20 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                        document.getElementById("demo2").innerHTML = (Math.round(Math.abs((d1 - d) / (24 * 60 * 60 * 1000)))) - (Math.round(document.getElementById("TextAge").value * 365.2));
                                                    }
                                                 </script>
-                                                    <button type="button" onclick="Diff1();" class="btn-primary">Code</button>
-                                                        <p id="demo2"></p>
+                                                <asp:DropDownList ID="DropDownList12" style="display:none" runat="server" DataSourceID="SqlDataSource12" DataTextField="DOB" DataValueField="DOB"></asp:DropDownList>
+                                                    <asp:SqlDataSource ID="SqlDataSource12" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [DOB] FROM [tblCLRegistration]"></asp:SqlDataSource>
+                                                    <button type="button" onclick="Diff1();" class="btn-primary">Code</button><br />
+                                                        <label><p id="demo2"></p></label>
                                             </td>
                          <td  colspan="10" style="background-color:lightblue;text-align-last:start">
                              <asp:Label ID="Label4" runat="server" Text="Sex:"  style="margin-left:-1%;font-family:Arial;font-weight:bolder"></asp:Label>
-                           <input id="Radio3" type="radio"  name="radios" value="Male" style="margin-left:9%;" checked="checked" /><strong>Male</strong>
-                           <input id="Radio4" type="radio"  name="radios" value="Female"/><strong>Female</strong>
-                           <input id="Radio5" type="radio"  name="radios" value="Others"/><strong>Others</strong>
+                             <asp:RadioButtonList ID="RadioButtonList3" RepeatDirection="Horizontal" runat="server">
+                                 <asp:ListItem >Male</asp:ListItem>
+                                 <asp:ListItem>Female</asp:ListItem>
+                                 <asp:ListItem>Others</asp:ListItem>
+                             </asp:RadioButtonList>
                            <script>
-                               $('input:radio[name="radios"]').change(function () {
+                               $('input:radio[name="RadioButtonList3"]').change(function () {
                                    if ($(this).val() == 'Male') {
                                        if ($('select[name^="DropDownList2"] option:selected').attr("selected", null)) {
                                            document.getSelection('DropDownList2').selectAllChildren;

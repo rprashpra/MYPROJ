@@ -22,23 +22,23 @@ namespace FRANCHISEPORT_1
             using (SqlConnection con = new SqlConnection(@"Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True"))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO tblCLRegistration_3 Values(@PatID,@Regdate,@patType,@Title,@Name,@DOB,@sex,@AreaName,@street,@City,@Pincode,@PhoneNumber,@Email,@credit,@CreditId,@UserID)", con);
-                cmd.Parameters.AddWithValue("@PatID", DropDownList10.SelectedValue);
-                cmd.Parameters.AddWithValue("@Regdate", DropDownList11.SelectedValue);
-                cmd.Parameters.AddWithValue("@patType", RadioButtonList2.SelectedValue);
-                cmd.Parameters.AddWithValue("@Title", DropDownList2.SelectedValue);
-                cmd.Parameters.AddWithValue("@Name", TextName.Text);
-                cmd.Parameters.AddWithValue("@DOB", DropDownList12.SelectedValue);
-                cmd.Parameters.AddWithValue("@sex", RadioButtonList3.SelectedValue);
+                SqlCommand cmd = new SqlCommand("INSERT INTO tblCLRegistration_12 Values(@PatID,@Regdate,@patType,@Title,@Name,@DOB,@sex,@AreaName,@street,@City,@Pincode,@PhoneNumber,@Email,@credit,@CreditId,@UserID)", con);
+                cmd.Parameters.AddWithValue("@PatID",DropDownList10.SelectedValue);
+                cmd.Parameters.AddWithValue("@Regdate",DropDownList11.SelectedValue);
+                cmd.Parameters.AddWithValue("@patType",RadioButtonList2.SelectedValue);
+                cmd.Parameters.AddWithValue("@Title",DropDownList2.SelectedValue);
+                cmd.Parameters.AddWithValue("@Name",TextName.Text);
+                cmd.Parameters.AddWithValue("@DOB",Convert.ToInt16(DropDownList12.SelectedValue));
+                cmd.Parameters.AddWithValue("@sex",RadioButtonList3.SelectedValue);
                 cmd.Parameters.AddWithValue("@AreaName",TextArea.Text);
-                cmd.Parameters.AddWithValue("@street", TextAddress.Text);
+                cmd.Parameters.AddWithValue("@street",TextAddress.Text);
                 cmd.Parameters.AddWithValue("@City", TextCity.Text);
                 cmd.Parameters.AddWithValue("@Pincode", TextPin.Text);
                 cmd.Parameters.AddWithValue("@PhoneNumber", TextPhone.Text);
                 cmd.Parameters.AddWithValue("@Email", TextEmail.Text);
-                cmd.Parameters.AddWithValue("@credit", DropDownList13.SelectedValue);
-                cmd.Parameters.AddWithValue("@CreditId", DropDownList9.SelectedValue);
-                cmd.Parameters.AddWithValue("@UserId", DropDownList8.SelectedValue);
+                cmd.Parameters.AddWithValue("@credit",DropDownList13.SelectedValue);
+                cmd.Parameters.AddWithValue("@CreditId",DropDownList9.SelectedValue);
+                cmd.Parameters.AddWithValue("@UserId",DropDownList8.SelectedValue);
                 cmd.ExecuteNonQuery();
                 con.Close();
             }

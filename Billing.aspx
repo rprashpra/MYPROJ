@@ -108,7 +108,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 }
            </style>
 </head>
-<body>
+<body style="background-color:gainsboro">
     <form id="form1" runat="server">
         <div class="w3-container" style="width:500%;margin-left:-1.3%">
         <div class="w3-bar w3-cyan">
@@ -213,6 +213,7 @@ tr:nth-child(even){background-color: #f2f2f2}
      <a href="Home.aspx" class="w3-bar-item w3-button w3-mobile">Help</a>
   </div>
 </div>
+        <br />
     <section class="col-lg-12" style="background-color:lightblue;width:97%">
          <div class="row">
              <div class="col-lg-12">
@@ -222,7 +223,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                     <tr>
                     <td colspan="10">
                         <label style="font-family:Arial;font-weight:bolder">Sr By Pat ID:</label>
-                        <input type="search" style="font-size:large;" placeholder="Search By Patentiant ID.." name="search" />&nbsp;&nbsp;
+                        <input type="search" style="font-size:small;" placeholder="Search By Patentiant ID.." name="search" />&nbsp;&nbsp;
                          <button type="button"><a href="SEARCH.aspx"><i class="fa fa-search"></i></a></button>
                     </td>
                     <td colspan="10" style="text-align-last:end">
@@ -231,19 +232,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                     <td colspan="10" style="text-align-last:center">
                         <asp:TextBox ID="TextDate" CssClass="form-control" TextMode="Date" ToolTip="Calender" style="margin-left:-1%;width:102%" runat="server"></asp:TextBox>
                     </td>
-                        <td  colspan="10" style="text-align-last:center">
-                            
-                        </td>
                     </tr>
                      <tr>
                        <td colspan="10" class="table-bordered" style="background-color:lightblue">
-                           <div style="margin-top:10%">
+                           <div style="margin-top:2%">
                          <asp:Label ID="Label1" runat="server" Text="BillType:"  style="font-family:Arial;font-weight:bolder"></asp:Label>
-                           <asp:RadioButtonList ID="RadioButtonList2" RepeatDirection="Horizontal" runat="server">
+                           <asp:RadioButtonList ID="RadioButtonList2" RepeatDirection="Horizontal" RepeatLayout="Table" runat="server">
                                <asp:ListItem  Value="CASH"></asp:ListItem>
-                               <asp:ListItem  Value="CREDIT"></asp:ListItem>
+                               <asp:ListItem  Value="CREDIT" style="margin-left:-45%"></asp:ListItem>
                            </asp:RadioButtonList><br />
-                           <asp:DropDownList ID="DropDownList1" style="width:48%;margin-left:50%;margin-top:-5%;display:none" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="Name"></asp:DropDownList>
+                           <asp:DropDownList ID="DropDownList1" CssClass="form-control" style="width:53%;margin-left:45%;margin-top:-13.5%;display:none" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="Name"></asp:DropDownList>
                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Name] FROM [tblCLCreditCustomerMaster]"></asp:SqlDataSource>
                            <script>
                                $('input:radio[name="RadioButtonList2"]').change(function () {
@@ -266,10 +264,12 @@ tr:nth-child(even){background-color: #f2f2f2}
                             </div>
                        </td>
                         <td colspan="10"  style="background-color:lightblue">
-                            <asp:DropDownList ID="DropDownList10" style="display:none" runat="server" DataSourceID="SqlDataSource10" DataTextField="PatID" DataValueField="PatID"></asp:DropDownList>
+                            <table id="table1" class="table table-bordered" style="background-color:lightblue">
+                                <tr>
+                                 <td>
+                            <asp:DropDownList ID="DropDownList10" style="display:none"  runat="server" DataSourceID="SqlDataSource10" DataTextField="PatID" DataValueField="PatID"></asp:DropDownList>
                             <asp:SqlDataSource ID="SqlDataSource10" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [PatID] FROM [tblCLRegistration]"></asp:SqlDataSource>
                             <?php  $sql = 2112060001;?>
-                           <h2 class="text-center">The getDate() Method</h2>
                             <center><button type="button" class="btn btn-primary" onclick="getDate(this.val)">Pat ID</button></center>
                                  <center><label><p id="demo"></p></label></center>
                                    <script type="text/javascript">
@@ -287,10 +287,15 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                new_id = parseInt(today.concat('0001'));
                                            }
                                            document.getElementById("demo").innerHTML = new_id;
+                                           if (today.localeCompare(cmpstring) == new Date()) {
+                                               document.getElementById("demo").innerHTML = new_id;
+                                               new_id = parseInt(today.concat('0001')) + new_id;
+                                           }
                                          }
-                                        </script><br />
+                                        </script>
+                                     </td>
+                                    <td>
                                     <?php $sql = 1000;?>
-                                    <h2 class="text-center">getRegno() method</h2>  
                                          <center><button type="button" class="btn btn-primary" onclick="getRegno(this.val)">Reg No</button></center>
                                              <center><label><p id="a"></p></label></center>
                                             <script type="text/javascript">
@@ -308,12 +313,13 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                         new_id = parseInt(today.concat('1000'));
 
                                                     }
-                                                    document.getElementById("a").innerHTML = new_id;
+                                                    document.getElementById("a").innerHTML =new_id;
                                                 }
-                                            </script><br />
+                                            </script>
+                                        </td>
+                                    <td>
                                   <asp:DropDownList ID="DropDownList11" runat="server" style="display:none" DataSourceID="SqlDataSource11" DataTextField="RegDate" DataValueField="RegDate"></asp:DropDownList>
                                     <asp:SqlDataSource ID="SqlDataSource11" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [RegDate] FROM [tblCLRegistration]"></asp:SqlDataSource>
-                                  <h1 class="text-center">RegDate</h1>
                                         <center><button type="button" class="btn btn-primary text-center" onclick="Diff();">Get RegDate</button></center>
                                               <center><label><p id="demo1"></p></label></center>
                                           <script>
@@ -323,11 +329,13 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                   document.getElementById("demo1").innerHTML = d;
                                                   document.getElementById("demo1").innerHTML = (Math.round(Math.abs((d1 - d) / (24 * 60 * 60 * 1000))));
                                               }
-                                          </script><br />
+                                          </script>
+                                        </td>
+                                           <td>
                                               <div class="text-center">
 	                                                <div class="bg">
 		                                                <div>
-			                                                <h1 id="countDisplay">Token NO: 0</h1>
+			                                                <h3 id="countDisplay">Token NO: 0</h3>
 		                                                </div>
 		                                                    <div class="buttons">
 			                                                    <button type="button" onclick="countUp()">Increment</button>
@@ -360,8 +368,10 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                         }
                                                         countDisplay.innerHTML = "Token NO: " + (count -= key);
                                                     }
-
                                                 </script>
+                                                   </td>
+                                               </tr>
+                                              </table>
                                           </td>
                          <td  colspan="10" style="background-color:lightblue;text-align-last:center;margin-top:5%">
                               <input type="file" id="files" name="files[]" multiple="multiple"/>
@@ -425,11 +435,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                      </tr>
                      <tr>
                        <td  colspan="10" style="background-color:lightblue">
-                           <asp:Label ID="Label3" runat="server" Text="Age:" style="font-family:Arial;font-weight:bolder"></asp:Label>
-                              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ControlToValidate="TextAge" ForeColor="Red"></asp:RequiredFieldValidator>
-                                <asp:TextBox ID="TextAge" TextMode="Number" style="width:18%;margin-left:9.1%;font-family:Arial;font-weight:bolder;font-size:small" runat="server" Width="134px"></asp:TextBox>
-                                     <asp:TextBox ID="TextMonth" TextMode="Month" style="width:19%;margin-left:9.1%;font-family:Arial;font-weight:bolder;font-size:small" runat="server" Width="134px"></asp:TextBox>
-                                         <asp:TextBox ID="TextDays" TextMode="Week" style="width:19%;margin-left:9.1%;font-family:Arial;font-weight:bolder;font-size:small" runat="server" Width="134px"></asp:TextBox>
+                           <table id="table2" class="table table-bordered" style="background-color:lightblue">
+                               <tr>
+                                  <td><asp:Label ID="Label3" runat="server" Text="Age:" style="font-family:Arial;font-weight:bolder"></asp:Label>
+                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ControlToValidate="TextAge" ForeColor="Red"></asp:RequiredFieldValidator></td>
+                                <td><asp:TextBox ID="TextAge" TextMode="Number" CssClass="form-control" style="margin-left:1.9%;font-family:Arial;font-weight:bolder;font-size:small" runat="server"></asp:TextBox></td>
+                                     <td>
+                                             <asp:DropDownList ID="DropDownList12" style="display:none" runat="server" DataSourceID="SqlDataSource12" DataTextField="DOB" DataValueField="DOB"></asp:DropDownList>
+                                                    <asp:SqlDataSource ID="SqlDataSource12" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [DOB] FROM [tblCLRegistration]"></asp:SqlDataSource>
+                                                    <button type="button" onclick="Diff1();" class="btn btn-primary" style="margin-left:-0.2%">Code</button><br />
+                                                        <label><p id="demo2"></p></label>
                                                <script>
                                                    function Diff1() {
                                                        var d = new Date(1899, 11, 30);
@@ -438,14 +453,16 @@ tr:nth-child(even){background-color: #f2f2f2}
                                                        document.getElementById("demo2").innerHTML = (Math.round(Math.abs((d1 - d) / (24 * 60 * 60 * 1000)))) - (Math.round(document.getElementById("TextAge").value * 365.2));
                                                    }
                                                 </script>
-                                                <asp:DropDownList ID="DropDownList12" style="display:none" runat="server" DataSourceID="SqlDataSource12" DataTextField="DOB" DataValueField="DOB"></asp:DropDownList>
-                                                    <asp:SqlDataSource ID="SqlDataSource12" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [DOB] FROM [tblCLRegistration]"></asp:SqlDataSource>
-                                                    <button type="button" onclick="Diff1();" class="btn-primary">Code</button><br />
-                                                        <label><p id="demo2"></p></label>
+                                                        </td>   
+                                                      </tr>
+                                                </table>
                                             </td>
-                         <td  colspan="10" style="background-color:lightblue;text-align-last:start">
+                         <td  colspan="10" style="background-color:lightblue;text-align-last:start;margin-top:-6%">
+                             <div class="col-lg-6" style="width:50%">
                              <asp:Label ID="Label4" runat="server" Text="Sex:"  style="margin-left:-1%;font-family:Arial;font-weight:bolder"></asp:Label>
-                             <asp:RadioButtonList ID="RadioButtonList3" RepeatDirection="Horizontal" runat="server">
+                                 </div>
+                             <div class="col-lg-6">
+                             <asp:RadioButtonList ID="RadioButtonList3" RepeatDirection="Horizontal" Width="100%" style="margin-left:-86%" runat="server">
                                  <asp:ListItem >Male</asp:ListItem>
                                  <asp:ListItem>Female</asp:ListItem>
                                  <asp:ListItem>Others</asp:ListItem>
@@ -458,13 +475,14 @@ tr:nth-child(even){background-color: #f2f2f2}
                                        }
                                    }
                                    else if ($(this).val() == 'Female') {
-                                       $('select[name^="DropDownList2"] option:Mrs').attr("Mrs",null);
+                                       $('select[name^="DropDownList2"] option:Mrs').attr("selected",null);
                                    }
                                    else{
-                                       $('select[name^="DropDownList2"] option:Others').attr("Others",null);
+                                       $('select[name^="DropDownList2"] option:others').attr("selected",null);
                                    }
                                });
                            </script>
+                            </div>
                          </td>
                            <td  colspan="10" style="background-color:lightblue;text-align-last:start">
                                <asp:Label ID="Label5" runat="server" Text="Address:" style="margin-left:-29%;font-family:Arial;font-weight:bolder"></asp:Label>
@@ -507,10 +525,10 @@ tr:nth-child(even){background-color: #f2f2f2}
                      </tr>
                      <tr>
                         <td colspan="10" style="background-color:lightblue">
-                            <asp:Label ID="Label9" runat="server" Text="Refer.By Dr:" style="font-family:Arial;font-weight:bolder"></asp:Label>
+                            <asp:Label ID="Label9" runat="server" Text="ReferDr:" style="font-family:Arial;font-weight:bolder"></asp:Label>
                                 <asp:DropDownList ID="DropDownList4"  style="margin-left:0.6%" runat="server" DataSourceID="SqlDataSource3" DataTextField="Name" DataValueField="Name" Height="22px" Width="265px"></asp:DropDownList>
                             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Name] FROM [tblCLDoctorMaster]"></asp:SqlDataSource>
-                                <button type="button" style="background-color:gainsboro;width:21%;margin-left:-1%"><a href="DoctorMaster.aspx">DoctorMaster</a></button>
+                                <button type="button" style="background-color:gainsboro;width:21%;margin-left:-0.5%"><a href="DoctorMaster.aspx">DoctorMaster</a></button>
                         </td>
                          <td colspan="10" style="background-color:lightblue;text-align-last:start">
                               <asp:Label ID="Label10" runat="server" Text="City:" style="margin-left:2.4%;font-family:Arial;font-weight:bolder"></asp:Label>
@@ -522,9 +540,9 @@ tr:nth-child(even){background-color: #f2f2f2}
                      <tr>
                          <td colspan="10" style="background-color:lightblue">
                               <asp:Label ID="Label11" runat="server" Text="Marketing:" style="font-family:Arial;font-weight:bolder"></asp:Label>
-                             <asp:DropDownList ID="DropDownList5" style="margin-left:3%" runat="server" DataSourceID="SqlDataSource4" DataTextField="Name" DataValueField="Name" Height="22px"  Width="265px"></asp:DropDownList>
+                             <asp:DropDownList ID="DropDownList5" style="margin-left:1%" runat="server" DataSourceID="SqlDataSource4" DataTextField="Name" DataValueField="Name" Height="22px"  Width="265px"></asp:DropDownList>
                               <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="Data Source=CIF5;Initial Catalog=CiftLab;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [Name] FROM [tblCLMarketingMaster]"></asp:SqlDataSource>
-                               <button type="button" style="background-color:gainsboro;width:20%;margin-left:-0.7%"><a href="MarketingMaster.aspx">Marketing</a></button>
+                               <button type="button" style="background-color:gainsboro;width:20%;margin-left:-8.1px"><a href="MarketingMaster.aspx">Marketing</a></button>
                          </td>
                          <td colspan="10" style="background-color:lightblue;text-align-last:start">
                             <asp:Label ID="Label12" runat="server" Text="Package:" style="margin-left:2%;font-family:Arial;font-weight:bolder"></asp:Label>
@@ -619,8 +637,12 @@ tr:nth-child(even){background-color: #f2f2f2}
                          </td>
                      </tr>
                  </table>
-                 <hr />
-                 <ul class="list-group">
+             </div>
+        </div>
+    </section>
+        <hr />
+        <section class="col-lg-12" style="margin-top:0.3%;margin-left:-2%">
+              <ul class="list-group">
                  <div class="clearfix" style="text-align-last:right">
                              <button type="button" class="btn btn-primary" onclick="openWin()">NEW</button>
                              <script>
@@ -634,9 +656,7 @@ tr:nth-child(even){background-color: #f2f2f2}
                              <button type="button" class="btn btn-danger" onclick="window.close()">CLOSE</button>
                          </div>
                      </ul>
-             </div>
-        </div>
-    </section>    
+        </section>    
     </form>
 </body>
 </html>

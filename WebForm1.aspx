@@ -9,6 +9,8 @@
 <body>
     <form id="form1" runat="server">
          <?php  $sql = 2112060001;?>
+                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                <ContentTemplate>
                                 <asp:DropDownList ID="DropDownList12" CssClass="form-control" style="display:none" runat="server"></asp:DropDownList>
                                         <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
                                 <asp:Button ID="Btn_getDate" runat="server" Text="PATID" OnClick="Btn_SaveDate_Click"  />
@@ -49,6 +51,8 @@
                                                   document.getElementById("demo1").innerHTML = (Math.round(Math.abs((d1 - d) / (24 * 60 * 60 * 1000))));
                                               }
                                           </script>
+                             </ContentTemplate>
+                            </asp:UpdatePanel>
     </form>
 </body>
 </html>

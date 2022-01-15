@@ -8,7 +8,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-         <?php  $sql = 2112060001;?>
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                 <ContentTemplate>
                                 <asp:DropDownList ID="DropDownList12" CssClass="form-control" style="display:none" runat="server"></asp:DropDownList>

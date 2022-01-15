@@ -14,7 +14,6 @@ namespace FRANCHISEPORT
     {
         protected void Page_load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack) {
                using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shrey\source\repos\FRANCHISEPORT\FRANCHISEPORT\App_Data\Database1.mdf;Integrated Security=True"))
                {
                     con.Open();
@@ -27,11 +26,9 @@ namespace FRANCHISEPORT
                     DropDownList12.DataSource = ds.Tables[0];      //assigning datasource to the dropdownlist  
                     DropDownList12.DataBind();
                }
-           }
         }
         protected void Btn_SaveDate_Click(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack) {
                 using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shrey\source\repos\FRANCHISEPORT\FRANCHISEPORT\App_Data\Database1.mdf;Integrated Security=True"))
                 {
                     con.Open();
@@ -40,7 +37,6 @@ namespace FRANCHISEPORT
                     int i = cmd.ExecuteNonQuery();
                     con.Close();
                 }
-            }
         }
 
         protected void Btn_date_Click(object sender, EventArgs e)

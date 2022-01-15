@@ -14,6 +14,7 @@ namespace FRANCHISEPORT
     {
         protected void Page_load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack) {
                using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shrey\source\repos\FRANCHISEPORT\FRANCHISEPORT\App_Data\Database1.mdf;Integrated Security=True"))
                {
                     con.Open();
@@ -26,16 +27,19 @@ namespace FRANCHISEPORT
                     DropDownList12.DataSource = ds.Tables[0];      //assigning datasource to the dropdownlist  
                     DropDownList12.DataBind();
                }
+           }
         }
         protected void Btn_SaveDate_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shrey\source\repos\FRANCHISEPORT\FRANCHISEPORT\App_Data\Database1.mdf;Integrated Security=True"))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("insert into TBLSAMPLE (PatID) values (@PatID)", con);
-                cmd.Parameters.AddWithValue("PatID", DropDownList1.SelectedItem.Value);
-                int i = cmd.ExecuteNonQuery();
-                con.Close();
+            if (!Page.IsPostBack) {
+                using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shrey\source\repos\FRANCHISEPORT\FRANCHISEPORT\App_Data\Database1.mdf;Integrated Security=True"))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("insert into TBLSAMPLE (PatID) values (@PatID)", con);
+                    cmd.Parameters.AddWithValue("PatID", DropDownList1.SelectedItem.Value);
+                    int i = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
             }
         }
 

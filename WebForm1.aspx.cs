@@ -8,23 +8,50 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Data;
-using System.IO.Compression;
-using System.Web.Mail;
-namespace FRANCHISEPORT_1
+namespace FRANCHISEPORT
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-        public String characters = "abcdeCDEfghijkzMABFHIJKLNOlmnopqrPQRSTstuvwxyUVWXYZ";
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_load(object sender, EventArgs e)
         {
-      
+               using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shrey\source\repos\FRANCHISEPORT\FRANCHISEPORT\App_Data\Database1.mdf;Integrated Security=True"))
+               {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT PatID FROM TBLSAMPLE", con);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);  // fill dataset  
+                    DropDownList12.DataTextField = ds.Tables[0].Columns["PatID"].ToString(); // text field PatID of table dispalyed in dropdown       
+                                                                                             // to retrive specific  textfield name   
+                    DropDownList12.DataSource = ds.Tables[0];      //assigning datasource to the dropdownlist  
+                    DropDownList12.DataBind();
+               }
         }
-        protected void Btn_SAVE_Click(object sender, EventArgs e)
+        protected void Btn_SaveDate_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection("Data Source=cif5;Initial Catalog=CiftLab;Persist Security Info=True;User ID=sa;Password=***********"))
+            using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shrey\source\repos\FRANCHISEPORT\FRANCHISEPORT\App_Data\Database1.mdf;Integrated Security=True"))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO tblCLRegistration values ", con);
+                SqlCommand cmd = new SqlCommand("insert into TBLSAMPLE (PatID) values (@PatID)", con);
+                cmd.Parameters.AddWithValue("PatID", DropDownList1.SelectedItem.Value);
+                int i = cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        protected void Btn_date_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shrey\source\repos\FRANCHISEPORT\FRANCHISEPORT\App_Data\Database1.mdf;Integrated Security=True"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("SELECT PatID FROM TBLSAMPLE", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);  // fill dataset  
+                DropDownList12.DataTextField = ds.Tables[0].Columns["PatID"].ToString(); // text field PatID of table dispalyed in dropdown       
+                // to retrive specific  textfield name   
+                DropDownList12.DataSource = ds.Tables[0];      //assigning datasource to the dropdownlist  
+                DropDownList12.DataBind();
             }
         }
     }
